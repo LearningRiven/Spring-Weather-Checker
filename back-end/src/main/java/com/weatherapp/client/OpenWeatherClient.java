@@ -42,7 +42,7 @@ public class OpenWeatherClient {
                 .body(GeocodingResponseDTO.class);
     }
 
-    public WeatherResponseDTO getWeather(WeatherRequestDTO dto){
+    public WeatherResponseDTO getCurrentWeather(WeatherRequestDTO dto){
         //Default path for getting the weather
         String path = "/data/2.5/weather";
 
@@ -55,7 +55,7 @@ public class OpenWeatherClient {
                 .queryParam("lat",dto.getLatitude())
                 .queryParam("lon",dto.getLongitude())
                 .queryParam("units",wUnits)
-                .queryParam("language",wLang)
+                .queryParam("lang",wLang)
                 .queryParam("appid", apiKey)
                 .encode()
                 .build()

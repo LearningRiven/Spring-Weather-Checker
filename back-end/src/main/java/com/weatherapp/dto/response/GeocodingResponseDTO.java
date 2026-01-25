@@ -3,7 +3,7 @@ package com.weatherapp.dto.response;
 public record GeocodingResponseDTO (
         String zip,
         String name,
-        double lat,
-        double lon,
+        Double lat,
+        Double lon,
         String country
 ){}

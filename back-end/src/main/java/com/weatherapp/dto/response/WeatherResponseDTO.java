@@ -14,22 +14,22 @@ public record WeatherResponseDTO(
         List<WeatherConditionDTO> weather,
         String base,
         WeatherMeasurementsDTO main,
-        int visibility,
+        Integer visibility,
         WindDTO wind,
         CloudsDTO clouds,
-        long dt,
+        Long dt,
         Sys sys,
-        int timezone,
-        @JsonProperty("id") int responseId,
+        Integer timezone,
+        @JsonProperty("id") Integer responseId,
         String name,
-        int cod
+        Integer cod
 ){
     //Kept this as a subclass, not really reusable, rest moved to their own DTOs
     public record Sys (
-        int type,
-        @JsonProperty("id") int sysId,
+        Integer type,
+        @JsonProperty("id") Integer sysId,
         String country,
-        long sunrise,
-        long sunset
+        Long sunrise,
+        Long sunset
     ){}
 }

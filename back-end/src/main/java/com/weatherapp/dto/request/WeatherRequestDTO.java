@@ -2,34 +2,34 @@ package com.weatherapp.dto.request;
 
 public class WeatherRequestDTO {
 
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
     private String units;
     private String language;
 
     public WeatherRequestDTO() {
     }
 
-    public WeatherRequestDTO(String latitude, String longitude, String units, String language) {
+    public WeatherRequestDTO(Double latitude, Double longitude, String units, String language) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.units = units;
         this.language = language;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
