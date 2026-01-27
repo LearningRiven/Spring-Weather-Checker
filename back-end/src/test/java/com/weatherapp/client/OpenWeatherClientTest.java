@@ -16,7 +16,7 @@ class OpenWeatherClientTest {
     @BeforeEach
     void setUp() {
         restClient = mock(RestClient.class);
-        openWeatherClient = new OpenWeatherClient(restClient, "test-api-key");
+        openWeatherClient = new OpenWeatherClient(restClient, "https://api.openweathermap.org", "test-api-key");
     }
 
     @Nested

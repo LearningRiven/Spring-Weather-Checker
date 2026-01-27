@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: backend
+
+openweather:
+  api:
+    key: ${OPENWEATHER_API_KEY:}   # still uses env vars / placeholders

@@ -3,50 +3,50 @@ package com.weatherapp.exception;
 import com.weatherapp.dto.response.ErrorResponseDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientResponseException;
-
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-@RestControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    //API errors
     @ExceptionHandler(RestClientResponseException.class)
-    public ResponseEntity<ErrorResponseDTO> handleRestClientException(RestClientResponseException e){
-        int statusCode = e.getStatusCode().value();
+    public ResponseEntity<ErrorResponseDTO> handleRestClientException(
+            RestClientResponseException ex,
+            WebRequest request) {
+        int statusCode = ex.getStatusCode().value();
         String message = mapApiErrorMessage(statusCode);
 
-        return ResponseEntity
-                .status(statusCode)
-                .body(ErrorResponseDTO.of(message, statusCode));
+        ErrorResponseDTO error = ErrorResponseDTO.of(message, statusCode);
+        return new ResponseEntity<>(error, HttpStatusCode.valueOf(statusCode));
     }
 
-    //Bad input
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponseDTO> handleValidationException(ConstraintViolationException e) {
-        String message = e.getConstraintViolations()
+    public ResponseEntity<ErrorResponseDTO> handleConstraintViolationException(
+            ConstraintViolationException ex,
+            WebRequest request) {
+        String message = ex.getConstraintViolations()
                 .stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining("; "));
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(ErrorResponseDTO.of(message, 400));
+        ErrorResponseDTO error = ErrorResponseDTO.of(message, 400);
+        return ResponseEntity.badRequest().body(error);
     }
 
-    //Fallback
+    //fallback
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> handleGenericException(Exception e) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ErrorResponseDTO.of("An unexpected error occurred", 500));
+    public ResponseEntity<ErrorResponseDTO> handleGenericException(
+            Exception ex,
+            WebRequest request) {
+        // Add logging here later: log.error("Unhandled exception", ex);
+        ErrorResponseDTO error = ErrorResponseDTO.of("An unexpected error occurred", 500);
+        return ResponseEntity.internalServerError().body(error);
     }
 
     private String mapApiErrorMessage(int statusCode) {

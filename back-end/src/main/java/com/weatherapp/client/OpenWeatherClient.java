@@ -16,11 +16,14 @@ import org.apache.commons.lang3.StringUtils;
 public class OpenWeatherClient {
 
     private final RestClient restClient;
-    private final String baseURL = "http://api.openweathermap.org";
+    private final String baseURL;
     private final String apiKey;
 
-    public OpenWeatherClient(@Qualifier("openWeatherRestClient") RestClient restClient, @Value("${openweather.api.key}") String apiKey){
+    public OpenWeatherClient(@Qualifier("openWeatherRestClient") RestClient restClient,
+                             @Value("${openweather.api.base-url:https://api.openweathermap.org}") String baseURL,
+                             @Value("${openweather.api.key:}") String apiKey){
         this.restClient = restClient;
+        this.baseURL = baseURL;
         this.apiKey = apiKey;
     }
 

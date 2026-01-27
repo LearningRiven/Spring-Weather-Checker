@@ -1,6 +1,6 @@
 package com.weatherapp.dto.request;
 
-import io.micrometer.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class GeocodingDirectRequestDTO {
 
@@ -12,6 +12,7 @@ public class GeocodingDirectRequestDTO {
     public GeocodingDirectRequestDTO() {
     }
 
+    //
     public GeocodingDirectRequestDTO(String cityName, String stateCode, String countryCode, Integer limit) {
         this.cityName = cityName;
         this.stateCode = stateCode;
@@ -55,13 +56,19 @@ public class GeocodingDirectRequestDTO {
      * Formats the query parameter as expected by OpenWeatherMap API: "cityName,stateCode,countryCode"
      */
     public String toQueryParam() {
-        StringBuilder sb = new StringBuilder(cityName);
-        if (!StringUtils.isBlank(stateCode)) {
+        StringBuilder sb = new StringBuilder(cityName != null ? cityName : "");
+        if (!StringUtils.isBlank(stateCode) && "US".equalsIgnoreCase(countryCode)) {
             sb.append(",").append(stateCode);
         }
         if (!StringUtils.isBlank(countryCode)) {
             sb.append(",").append(countryCode);
         }
+
+        //Remove comma if first character
+        if(!sb.isEmpty() && sb.charAt(0) == ','){
+            sb.deleteCharAt(0);
+        }
+
         return sb.toString();
     }
 }
