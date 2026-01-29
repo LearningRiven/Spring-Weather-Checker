@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 class GeocodingZipRequestDTOTest {
 
     @Nested
@@ -42,19 +45,23 @@ class GeocodingZipRequestDTOTest {
         @Test
         @DisplayName("all-args constructor sets fields correctly")
         void allArgsConstructor_setsFields() {
-            // TODO
+            GeocodingZipRequestDTO direct = new GeocodingZipRequestDTO("78727","US");
+            assertEquals("78727", direct.getZipCode());
+            assertEquals("US", direct.getCountryCode());
         }
 
         @Test
         @DisplayName("no-args constructor creates empty object")
-        void noArgsConstructor_createsEmptyObject() {
-            // TODO
-        }
+        void constructor_createsEmptyObjectAndSets() {
+            GeocodingZipRequestDTO direct = new GeocodingZipRequestDTO();
+            assertNull(direct.getZipCode());
+            assertNull(direct.getCountryCode());
 
-        @Test
-        @DisplayName("setters update fields correctly")
-        void setters_updateFields() {
-            // TODO
+            direct.setZipCode("01013");
+            direct.setCountryCode("US");
+
+            assertEquals("01013", direct.getZipCode());
+            assertEquals("US", direct.getCountryCode());
         }
     }
 }

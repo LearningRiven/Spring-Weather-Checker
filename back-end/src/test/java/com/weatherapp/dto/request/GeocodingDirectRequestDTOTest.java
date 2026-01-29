@@ -95,29 +95,21 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("no-args constructor creates empty object")
-        void noArgsConstructor_createsEmptyObject() {
+        void constructor_createsEmptyObjectAndSets() {
             GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO();
             assertNull(direct.getCityName());
             assertNull(direct.getStateCode());
             assertNull(direct.getCountryCode());
             assertNull(direct.getLimit());
-        }
-
-        @Test
-        @DisplayName("setters update fields correctly")
-        void setters_updateFields() {
-            GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO();
 
             direct.setCityName("Chicopee");
-            assertEquals("Chicopee", direct.getCityName());
-
             direct.setStateCode("MA");
-            assertEquals("MA", direct.getStateCode());
-
             direct.setCountryCode("US");
-            assertEquals("US", direct.getCountryCode());
-
             direct.setLimit(3);
+
+            assertEquals("Chicopee", direct.getCityName());
+            assertEquals("MA", direct.getStateCode());
+            assertEquals("US", direct.getCountryCode());
             assertEquals(3, direct.getLimit());
         }
     }
