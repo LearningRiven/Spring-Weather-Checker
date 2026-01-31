@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 class WeatherRequestDTOTest {
 
     @Nested
@@ -13,13 +16,21 @@ class WeatherRequestDTOTest {
         @Test
         @DisplayName("all-args constructor sets all fields correctly")
         void allArgsConstructor_setsAllFields() {
-            // TODO
+            WeatherRequestDTO requestDTO = new WeatherRequestDTO(1.2,-1.2,"imperial","en");
+            assertEquals(1.2,requestDTO.getLatitude());
+            assertEquals(-1.2,requestDTO.getLongitude());
+            assertEquals("imperial",requestDTO.getUnits());
+            assertEquals("en",requestDTO.getLanguage());
         }
 
         @Test
         @DisplayName("no-args constructor creates object with default values")
         void noArgsConstructor_createsObjectWithDefaults() {
-            // TODO
+            WeatherRequestDTO requestDTO = new WeatherRequestDTO();
+            assertEquals(0,requestDTO.getLatitude());
+            assertEquals(0,requestDTO.getLongitude());
+            assertNull(requestDTO.getUnits());
+            assertNull(requestDTO.getLanguage());
         }
     }
 
@@ -28,27 +39,36 @@ class WeatherRequestDTOTest {
     class GettersAndSetters {
 
         @Test
-        @DisplayName("setLatitude updates latitude")
-        void setLatitude_updatesLatitude() {
-            // TODO
+        @DisplayName("handle values")
+        void set_updatesPositive() {
+            WeatherRequestDTO requestDTO = new WeatherRequestDTO();
+            requestDTO.setLatitude(2.7);
+            requestDTO.setLongitude(2.33);
+            requestDTO.setUnits("imperial");
+            requestDTO.setLanguage("en");
+
+
+            assertEquals(2.7,requestDTO.getLatitude());
+            assertEquals(2.33,requestDTO.getLongitude());
+            assertEquals("imperial",requestDTO.getUnits());
+            assertEquals("en",requestDTO.getLanguage());
         }
 
         @Test
-        @DisplayName("setLongitude updates longitude")
-        void setLongitude_updatesLongitude() {
-            // TODO
-        }
+        @DisplayName("handle null/blank")
+        void set_updatesBlankNull() {
+            WeatherRequestDTO requestDTO = new WeatherRequestDTO();
+            requestDTO.setUnits("");
+            requestDTO.setLanguage("");
 
-        @Test
-        @DisplayName("setUnits updates units")
-        void setUnits_updatesUnits() {
-            // TODO
-        }
+            assertEquals("",requestDTO.getUnits());
+            assertEquals("",requestDTO.getLanguage());
 
-        @Test
-        @DisplayName("setLanguage updates language")
-        void setLanguage_updatesLanguage() {
-            // TODO
+            requestDTO.setUnits(null);
+            requestDTO.setLanguage(null);
+
+            assertNull(requestDTO.getUnits());
+            assertNull(requestDTO.getLanguage());
         }
     }
 }

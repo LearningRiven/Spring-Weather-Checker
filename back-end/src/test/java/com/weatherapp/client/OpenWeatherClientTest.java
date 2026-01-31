@@ -9,14 +9,11 @@ import org.springframework.web.client.RestClient;
 import static org.mockito.Mockito.mock;
 
 class OpenWeatherClientTest {
-
-    private RestClient restClient;
     private OpenWeatherClient openWeatherClient;
 
     @BeforeEach
     void setUp() {
-        restClient = mock(RestClient.class);
-        openWeatherClient = new OpenWeatherClient(restClient, "https://api.openweathermap.org", "test-api-key");
+        openWeatherClient = new OpenWeatherClient("https://api.openweathermap.org", "test-api-key");
     }
 
     @Nested

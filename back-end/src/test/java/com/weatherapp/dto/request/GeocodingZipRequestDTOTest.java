@@ -16,25 +16,41 @@ class GeocodingZipRequestDTOTest {
         @Test
         @DisplayName("formats zip and country correctly")
         void formatsZipAndCountry() {
-            // TODO
+            GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO("01013","US");
+            assertEquals("01013,US", zipReq.toZipParam());
         }
 
         @Test
-        @DisplayName("returns only zip when country is null")
-        void nullCountry_returnsOnlyZip() {
-            // TODO
+        @DisplayName("invalid country (blank/null)")
+        void invalidCountry_returnsOnlyZip() {
+            GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO("01013",null);
+            assertEquals("01013", zipReq.toZipParam());
+
+            zipReq.setCountryCode("");
+            assertEquals("01013", zipReq.toZipParam());
+
+            zipReq.setCountryCode("      ");
+            assertEquals("01013", zipReq.toZipParam());
         }
 
         @Test
-        @DisplayName("returns only zip when country is blank")
-        void blankCountry_returnsOnlyZip() {
-            // TODO
+        @DisplayName("invalid DTO")
+        void empty_returnsBlank() {
+            GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO();
+            assertEquals("", zipReq.toZipParam());
         }
 
         @Test
-        @DisplayName("returns only zip when country is empty string")
-        void emptyCountry_returnsOnlyZip() {
-            // TODO
+        @DisplayName("invalid zip (blank/null)")
+        void invalidCountry_returnsOnlyCountry() {
+            GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO(null,"US");
+            assertEquals("US", zipReq.toZipParam());
+
+            zipReq.setZipCode("");
+            assertEquals("US", zipReq.toZipParam());
+
+            zipReq.setZipCode("    ");
+            assertEquals("US", zipReq.toZipParam());
         }
     }
 

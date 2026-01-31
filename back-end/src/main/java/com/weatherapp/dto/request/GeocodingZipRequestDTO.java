@@ -1,5 +1,7 @@
 package com.weatherapp.dto.request;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class GeocodingZipRequestDTO {
 
     private String zipCode;
@@ -33,9 +35,16 @@ public class GeocodingZipRequestDTO {
      * Formats the zip parameter as expected by OpenWeatherMap API: "zipCode,countryCode"
      */
     public String toZipParam() {
-        if (countryCode == null || countryCode.isBlank()) {
-            return zipCode;
+        StringBuilder sb = new StringBuilder(!StringUtils.isBlank(zipCode) ? zipCode.trim() : "");
+        if (!StringUtils.isBlank(countryCode)) {
+            sb.append(",").append(countryCode.trim());
         }
-        return zipCode + "," + countryCode;
+
+        //Remove comma if first character
+        if(!sb.isEmpty() && sb.charAt(0) == ','){
+            sb.deleteCharAt(0);
+        }
+
+        return sb.toString();
     }
 }
