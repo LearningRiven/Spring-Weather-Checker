@@ -4,7 +4,6 @@ import com.weatherapp.dto.request.GeocodingZipRequestDTO;
 import com.weatherapp.dto.request.WeatherRequestDTO;
 import com.weatherapp.dto.response.GeocodingResponseDTO;
 import com.weatherapp.dto.response.WeatherResponseDTO;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -18,9 +17,10 @@ public class OpenWeatherClient {
 
     public OpenWeatherClient(
             @Value("${openweather.api.base-url:https://api.openweathermap.org}") String baseUrl,
-            @Value("${openweather.api.key:}") String apiKey) {
+            @Value("${openweather.api.key}") String apiKey,
+            RestClient.Builder builder) {
         this.apiKey = apiKey;
-        this.restClient = RestClient.builder().baseUrl(baseUrl).build();
+        this.restClient = builder.baseUrl(baseUrl).build();
     }
 
     public GeocodingResponseDTO getCoordinatesByZip(GeocodingZipRequestDTO dto){

@@ -1,0 +1,45 @@
+{
+  "coord": {
+    "lon": -97.7195,
+    "lat": 30.4254
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 80.76,
+    "feels_like": 79.32,
+    "temp_min": 79.11,
+    "temp_max": 82.74,
+    "pressure": 1020,
+    "humidity": 25,
+    "sea_level": 1020,
+    "grnd_level": 992
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 9.22,
+    "deg": 150
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1770501204,
+  "sys": {
+    "type": 2,
+    "id": 2108492,
+    "country": "US",
+    "sunrise": 1770470271,
+    "sunset": 1770509535
+  },
+  "timezone": -21600,
+  "id": 4740584,
+  "name": "Wells Branch",
+  "cod": 200
+}

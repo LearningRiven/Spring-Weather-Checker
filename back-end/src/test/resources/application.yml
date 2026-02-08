@@ -4,4 +4,4 @@ spring:
 
 openweather:
   api:
-    key: ${OPENWEATHER_API_KEY}
+    key: "test-api-key"
