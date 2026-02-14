@@ -43,10 +43,10 @@ public class OpenWeatherClient {
 
         return restClient.get()
                 .uri(path, uriBuilder -> uriBuilder
-                        .queryParam("lat",dto.getLatitude())
-                        .queryParam("lon", dto.getLongitude())
-                        .queryParam("units", dto.getUnits())
-                        .queryParam("lang", dto.getLanguage())
+                        .queryParam("lat",dto.latitude())
+                        .queryParam("lon", dto.longitude())
+                        .queryParam("units", dto.units())
+                        .queryParam("lang", dto.language())
                         .queryParam("appid", apiKey)
                         .build()
                 )
