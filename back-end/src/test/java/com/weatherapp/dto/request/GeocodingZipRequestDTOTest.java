@@ -11,18 +11,18 @@ class GeocodingZipRequestDTOTest {
 
     @Nested
     @DisplayName("toZipParam")
-    class ToZipParam {
+    class test_ToZipParam {
 
         @Test
         @DisplayName("formats zip and country correctly")
-        void formatsZipAndCountry() {
+        void test_formatsZipAndCountry() {
             GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO("01013","US");
             assertEquals("01013,US", zipReq.toZipParam());
         }
 
         @Test
         @DisplayName("invalid country (blank/null)")
-        void invalidCountry_returnsOnlyZip() {
+        void test_invalidCountry_returnsOnlyZip() {
             GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO("01013",null);
             assertEquals("01013", zipReq.toZipParam());
 
@@ -35,14 +35,14 @@ class GeocodingZipRequestDTOTest {
 
         @Test
         @DisplayName("invalid DTO")
-        void empty_returnsBlank() {
+        void test_empty_returnsBlank() {
             GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO();
             assertEquals("", zipReq.toZipParam());
         }
 
         @Test
         @DisplayName("invalid zip (blank/null)")
-        void invalidCountry_returnsOnlyCountry() {
+        void test_invalidCountry_returnsOnlyCountry() {
             GeocodingZipRequestDTO zipReq = new GeocodingZipRequestDTO(null,"US");
             assertEquals("US", zipReq.toZipParam());
 
@@ -56,11 +56,11 @@ class GeocodingZipRequestDTOTest {
 
     @Nested
     @DisplayName("constructor and getters")
-    class ConstructorAndGetters {
+    class test_ConstructorAndGetters {
 
         @Test
         @DisplayName("all-args constructor sets fields correctly")
-        void allArgsConstructor_setsFields() {
+        void test_allArgsConstructor_setsFields() {
             GeocodingZipRequestDTO direct = new GeocodingZipRequestDTO("78727","US");
             assertEquals("78727", direct.getZipCode());
             assertEquals("US", direct.getCountryCode());
@@ -68,7 +68,7 @@ class GeocodingZipRequestDTOTest {
 
         @Test
         @DisplayName("no-args constructor creates empty object")
-        void constructor_createsEmptyObjectAndSets() {
+        void test_constructor_createsEmptyObjectAndSets() {
             GeocodingZipRequestDTO direct = new GeocodingZipRequestDTO();
             assertNull(direct.getZipCode());
             assertNull(direct.getCountryCode());

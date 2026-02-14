@@ -11,11 +11,11 @@ class WeatherRequestDTOTest {
 
     @Nested
     @DisplayName("constructor")
-    class Constructor {
+    class test_Constructor {
 
         @Test
         @DisplayName("all-args constructor sets all fields correctly")
-        void allArgsConstructor_setsAllFields() {
+        void test_allArgsConstructor_setsAllFields() {
             WeatherRequestDTO requestDTO = new WeatherRequestDTO(1.2,-1.2,"imperial","en");
             assertEquals(1.2,requestDTO.getLatitude());
             assertEquals(-1.2,requestDTO.getLongitude());
@@ -25,7 +25,7 @@ class WeatherRequestDTOTest {
 
         @Test
         @DisplayName("no-args constructor creates object with default values")
-        void noArgsConstructor_createsObjectWithDefaults() {
+        void test_noArgsConstructor_createsObjectWithDefaults() {
             WeatherRequestDTO requestDTO = new WeatherRequestDTO();
             assertEquals(0,requestDTO.getLatitude());
             assertEquals(0,requestDTO.getLongitude());
@@ -36,11 +36,11 @@ class WeatherRequestDTOTest {
 
     @Nested
     @DisplayName("getters and setters")
-    class GettersAndSetters {
+    class test_GettersAndSetters {
 
         @Test
         @DisplayName("handle values")
-        void set_updatesPositive() {
+        void test_set_updatesPositive() {
             WeatherRequestDTO requestDTO = new WeatherRequestDTO();
             requestDTO.setLatitude(2.7);
             requestDTO.setLongitude(2.33);
@@ -56,7 +56,7 @@ class WeatherRequestDTOTest {
 
         @Test
         @DisplayName("handle null/blank")
-        void set_updatesBlankNull() {
+        void test_set_updatesBlankNull() {
             WeatherRequestDTO requestDTO = new WeatherRequestDTO();
             requestDTO.setUnits("");
             requestDTO.setLanguage("");

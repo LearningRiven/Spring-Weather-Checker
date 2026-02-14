@@ -33,11 +33,11 @@ class OpenWeatherClientTest {
 
     @Nested
     @DisplayName("getCoordinatesByZip")
-    class GetCoordinatesByZip {
+    class test_GetCoordinatesByZip {
 
         @Test
         @DisplayName("calls geocoding endpoint")
-        void callsGeocodingEndpoint() throws IOException {
+        void test_callsGeocodingEndpoint() throws IOException {
             GeocodingZipRequestDTO requestDTO = new GeocodingZipRequestDTO("78727", "US");
             String responseJSON = loadJson("zipResponse.json");
 
@@ -62,11 +62,11 @@ class OpenWeatherClientTest {
 
     @Nested
     @DisplayName("getCurrentWeather")
-    class GetCurrentWeather {
+    class test_GetCurrentWeather {
 
         @Test
         @DisplayName("Test using the metric values response")
-        void callsWeatherEndpointMetric() throws IOException {
+        void test_callsWeatherEndpointMetric() throws IOException {
             //Request
             WeatherRequestDTO requestDTO = new WeatherRequestDTO(30.4254,-97.7195,"metric","en");
             String responseJSON = loadJson("weatherResponseMetric.json");
@@ -131,7 +131,7 @@ class OpenWeatherClientTest {
 
         @Test
         @DisplayName("Test using the imperial values response")
-        void callsWeatherEndpointImperial() throws IOException {
+        void test_callsWeatherEndpointImperial() throws IOException {
             //Request
             WeatherRequestDTO requestDTO = new WeatherRequestDTO(30.4254,-97.7195,"imperial","en");
             String responseJSON = loadJson("weatherResponseImperial.json");

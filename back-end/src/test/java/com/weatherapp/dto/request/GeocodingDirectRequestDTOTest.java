@@ -11,11 +11,11 @@ class GeocodingDirectRequestDTOTest {
 
     @Nested
     @DisplayName("toQueryParam")
-    class ToQueryParam {
+    class test_ToQueryParam {
 
         @Test
         @DisplayName("formats city, state, country correctly")
-        void formatsAllFields() {
+        void test_formatsAllFields() {
             GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO("Austin","TX","US",5);
             String toQuery = direct.toQueryParam();
             assertEquals("Austin,TX,US",toQuery);
@@ -23,7 +23,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("formats state and country correctly when city is blank/null")
-        void nullBlankNull_city(){
+        void test_nullBlankNull_city(){
             GeocodingDirectRequestDTO directBlank = new GeocodingDirectRequestDTO("","TX","US",5);
             String toQueryBlank = directBlank.toQueryParam();
             assertEquals("TX,US",toQueryBlank);
@@ -35,7 +35,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("formats city and country correctly when state is blank/null")
-        void nullBlankNull_state(){
+        void test_nullBlankNull_state(){
             GeocodingDirectRequestDTO directBlank = new GeocodingDirectRequestDTO("Austin","","US",5);
             String toQueryBlank = directBlank.toQueryParam();
             assertEquals("Austin,US",toQueryBlank);
@@ -47,7 +47,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("formats city and state correctly when country is blank/null")
-        void nullBlankNull_country(){
+        void test_nullBlankNull_country(){
             GeocodingDirectRequestDTO directBlank = new GeocodingDirectRequestDTO("Austin","TX","",5);
             String toQueryBlank = directBlank.toQueryParam();
             assertEquals("Austin",toQueryBlank);
@@ -59,7 +59,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("includes state only when the country is US (case exclusive)")
-        void countryNotUS(){
+        void test_countryNotUS(){
             GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO("Worcester","MA","GB",5);
             String toQuery = direct.toQueryParam();
             assertEquals("Worcester,GB",toQuery);
@@ -67,7 +67,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("Nothing inside of the object")
-        void objectIsEmptyNull(){
+        void test_objectIsEmptyNull(){
             GeocodingDirectRequestDTO directBlank = new GeocodingDirectRequestDTO("","","",5);
             String toQueryBlank = directBlank.toQueryParam();
             assertEquals("",toQueryBlank);
@@ -81,11 +81,11 @@ class GeocodingDirectRequestDTOTest {
 
     @Nested
     @DisplayName("constructor and getters")
-    class ConstructorAndGetters {
+    class test_ConstructorAndGetters {
 
         @Test
         @DisplayName("all-args constructor sets fields correctly")
-        void allArgsConstructor_setsFields() {
+        void test_allArgsConstructor_setsFields() {
             GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO("Austin","TX","US",5);
             assertEquals("Austin", direct.getCityName());
             assertEquals("TX", direct.getStateCode());
@@ -95,7 +95,7 @@ class GeocodingDirectRequestDTOTest {
 
         @Test
         @DisplayName("no-args constructor creates empty object")
-        void constructor_createsEmptyObjectAndSets() {
+        void test_constructor_createsEmptyObjectAndSets() {
             GeocodingDirectRequestDTO direct = new GeocodingDirectRequestDTO();
             assertNull(direct.getCityName());
             assertNull(direct.getStateCode());
