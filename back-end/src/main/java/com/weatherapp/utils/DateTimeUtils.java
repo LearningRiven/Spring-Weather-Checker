@@ -1,5 +1,6 @@
 package com.weatherapp.utils;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -23,7 +24,12 @@ public final class DateTimeUtils {
 
     // Add more utils as needed, e.g., for sunrise/sunset or current system time
     public static String getCurrentSystemTime(String pattern) {
-        LocalDateTime now = LocalDateTime.now();  // Uses system default timezone
+        return getCurrentSystemTime(pattern, Clock.systemUTC());
+    }
+
+
+    public static String getCurrentSystemTime(String pattern, Clock clock) {
+        LocalDateTime now = clock.instant().atZone(clock.getZone()).toLocalDateTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return now.format(formatter);
     }
