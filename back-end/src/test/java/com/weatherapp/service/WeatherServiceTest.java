@@ -1,12 +1,26 @@
 package com.weatherapp.service;
 
 import com.weatherapp.client.OpenWeatherClient;
+import com.weatherapp.dto.response.GeocodingResponseDTO;
+import com.weatherapp.dto.response.SimplifiedWeatherResponseDTO;
+import com.weatherapp.dto.response.WeatherResponseDTO;
+import com.weatherapp.dto.response.shared.CloudsDTO;
+import com.weatherapp.dto.response.shared.CoordDTO;
+import com.weatherapp.dto.response.shared.WeatherConditionDTO;
+import com.weatherapp.dto.response.shared.WeatherMeasurementsDTO;
+import com.weatherapp.dto.response.shared.WindDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class WeatherServiceTest {
@@ -19,43 +33,38 @@ class WeatherServiceTest {
 
     @Test
     @DisplayName("getCurrentWeather returns simplified weather response")
-    void getCurrentWeather_returnsSimplifiedResponse() {
-        // TODO
-    }
+    void test_getCurrentWeather_returnsSimplifiedResponse() {
+        GeocodingResponseDTO geoResponse = new GeocodingResponseDTO("78727", "Austin", 30.4254, -97.7195, "US");
 
-    @Test
-    @DisplayName("getCurrentWeather calls geocoding client with correct parameters")
-    void getCurrentWeather_callsGeocodingWithCorrectParams() {
-        // TODO
-    }
+        WeatherResponseDTO weatherResponse = new WeatherResponseDTO(
+                new CoordDTO(-97.7195, 30.4254),
+                List.of(new WeatherConditionDTO(800, "Clear", "clear sky", "01d")),
+                "stations",
+                new WeatherMeasurementsDTO(80.76, 79.32, 79.11, 82.74, 1020, 25, 1020, 992),
+                10000,
+                new WindDTO(9.22, 150, null),
+                new CloudsDTO(0),
+                1770501204L,
+                new WeatherResponseDTO.Sys(2, 2108492, "US", 1770470271L, 1770509535L),
+                -21600,
+                4740584,
+                "Wells Branch",
+                200
+        );
 
-    @Test
-    @DisplayName("getCurrentWeather calls weather client with coordinates from geocoding")
-    void getCurrentWeather_callsWeatherWithCoordinates() {
-        // TODO
-    }
+        when(weatherClient.getCoordinatesByZip(any())).thenReturn(geoResponse);
+        when(weatherClient.getCurrentWeather(any())).thenReturn(weatherResponse);
 
-    @Test
-    @DisplayName("getCurrentWeather passes units to weather client")
-    void getCurrentWeather_passesUnits() {
-        // TODO
-    }
+        SimplifiedWeatherResponseDTO finalResponse = weatherService.getCurrentWeather("78727", "US", "imperial", "en");
 
-    @Test
-    @DisplayName("getCurrentWeather passes langCode to weather client")
-    void getCurrentWeather_passesLangCode() {
-        // TODO
-    }
-
-    @Test
-    @DisplayName("getCurrentWeather maps location name from geocoding response")
-    void getCurrentWeather_mapsLocationName() {
-        // TODO
-    }
-
-    @Test
-    @DisplayName("getCurrentWeather formats current time correctly")
-    void getCurrentWeather_formatsCurrentTime() {
-        // TODO
+        assertEquals("Austin", finalResponse.locationName());
+        assertEquals(80.76, finalResponse.temperature());
+        assertEquals("Clear", finalResponse.weatherConditions().get(0).currentCondition());
+        assertEquals("clear sky", finalResponse.weatherConditions().get(0).description());
+        assertEquals("01d", finalResponse.weatherConditions().get(0).icon());
+        assertEquals(25, finalResponse.humidity());
+        assertEquals(9.22, finalResponse.windSpeed());
+        assertEquals("imperial", finalResponse.units());
+        assertEquals("February 7, 2026 3:53 PM", finalResponse.currentTime());
     }
 }
