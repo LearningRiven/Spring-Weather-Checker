@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    //Handle specific response 400 errors from the api
     @ExceptionHandler(RestClientResponseException.class)
     public ResponseEntity<ErrorResponseDTO> handleRestClientException(
             RestClientResponseException ex,
@@ -26,6 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatusCode.valueOf(statusCode));
     }
 
+    //Handle generic 400
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponseDTO> handleConstraintViolationException(
             ConstraintViolationException ex,
@@ -39,7 +41,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
-    //fallback
+    //fallback, something failed, must be a 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleGenericException(
             Exception ex,

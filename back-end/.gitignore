@@ -33,8 +33,4 @@ build/
 .vscode/
 .env
 .env.local
-application-local.properties
-
-.env
-.env.local
 **/application-local.yml

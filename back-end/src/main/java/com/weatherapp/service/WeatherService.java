@@ -25,6 +25,7 @@ public class WeatherService {
         WeatherRequestDTO weatherRequest = new WeatherRequestDTO(geocodingResponse.lat(), geocodingResponse.lon(), units, langCode);
         WeatherResponseDTO currentWeather = weatherClient.getCurrentWeather(weatherRequest);
 
+        //Convert the time to local time for the DTO
         String localTime = DateTimeUtils.toLocalDateTimeString(currentWeather.dt(), currentWeather.timezone());
 
         return SimplifiedWeatherResponseDTO.builder()

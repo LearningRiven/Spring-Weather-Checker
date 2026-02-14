@@ -27,7 +27,7 @@ public final class DateTimeUtils {
         return getCurrentSystemTime(pattern, Clock.systemUTC());
     }
 
-
+    //Overloaded method to used a fixed clock, keeps things more consistent
     public static String getCurrentSystemTime(String pattern, Clock clock) {
         LocalDateTime now = clock.instant().atZone(clock.getZone()).toLocalDateTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
