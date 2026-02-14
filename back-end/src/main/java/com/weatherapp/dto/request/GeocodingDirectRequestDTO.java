@@ -56,7 +56,7 @@ public class GeocodingDirectRequestDTO {
      * Formats the query parameter as expected by OpenWeatherMap API: "cityName,stateCode,countryCode"
      */
     public String toQueryParam() {
-        StringBuilder sb = new StringBuilder(cityName != null ? cityName : "");
+        StringBuilder sb = new StringBuilder(!StringUtils.isBlank(cityName) ? cityName : "");
         if (!StringUtils.isBlank(stateCode) && "US".equalsIgnoreCase(countryCode)) {
             sb.append(",").append(stateCode);
         }

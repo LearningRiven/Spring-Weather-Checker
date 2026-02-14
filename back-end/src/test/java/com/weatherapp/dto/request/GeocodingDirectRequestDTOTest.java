@@ -28,6 +28,10 @@ class GeocodingDirectRequestDTOTest {
             String toQueryBlank = directBlank.toQueryParam();
             assertEquals("TX,US",toQueryBlank);
 
+            GeocodingDirectRequestDTO directBlank_Spread = new GeocodingDirectRequestDTO("  ","TX","US",5);
+            String toQueryBlank_spread = directBlank_Spread.toQueryParam();
+            assertEquals("TX,US",toQueryBlank_spread);
+
             GeocodingDirectRequestDTO directNull = new GeocodingDirectRequestDTO(null,"TX","US",5);
             String toQueryNull = directNull.toQueryParam();
             assertEquals("TX,US",toQueryNull);
