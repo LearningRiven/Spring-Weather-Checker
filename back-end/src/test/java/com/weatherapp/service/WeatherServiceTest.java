@@ -1,6 +1,8 @@
 package com.weatherapp.service;
 
 import com.weatherapp.client.OpenWeatherClient;
+import com.weatherapp.dto.request.GeocodingZipRequestDTO;
+import com.weatherapp.dto.request.WeatherRequestDTO;
 import com.weatherapp.dto.response.GeocodingResponseDTO;
 import com.weatherapp.dto.response.SimplifiedWeatherResponseDTO;
 import com.weatherapp.dto.response.WeatherResponseDTO;
@@ -34,9 +36,10 @@ class WeatherServiceTest {
     @Test
     @DisplayName("getCurrentWeather returns simplified weather response")
     void test_getCurrentWeather_returnsSimplifiedResponse() {
-        GeocodingResponseDTO geoResponse = new GeocodingResponseDTO("78727", "Austin", 30.4254, -97.7195, "US");
-
-        WeatherResponseDTO weatherResponse = new WeatherResponseDTO(
+        GeocodingZipRequestDTO zipRequestDTO = new GeocodingZipRequestDTO("78727", "US");
+        GeocodingResponseDTO geoResponseDTO = new GeocodingResponseDTO("78727", "Austin", 30.4254, -97.7195, "US");
+        WeatherRequestDTO weatherRequest = new WeatherRequestDTO(30.4254,-97.7195,"imperial","en");
+        WeatherResponseDTO weatherResponseDTO = new WeatherResponseDTO(
                 new CoordDTO(-97.7195, 30.4254),
                 List.of(new WeatherConditionDTO(800, "Clear", "clear sky", "01d")),
                 "stations",
@@ -52,8 +55,8 @@ class WeatherServiceTest {
                 200
         );
 
-        when(weatherClient.getCoordinatesByZip(any())).thenReturn(geoResponse);
-        when(weatherClient.getCurrentWeather(any())).thenReturn(weatherResponse);
+        when(weatherClient.getCoordinatesByZip(zipRequestDTO)).thenReturn(geoResponseDTO);
+        when(weatherClient.getCurrentWeather(weatherRequest)).thenReturn(weatherResponseDTO);
 
         SimplifiedWeatherResponseDTO finalResponse = weatherService.getCurrentWeather("78727", "US", "imperial", "en");
 
